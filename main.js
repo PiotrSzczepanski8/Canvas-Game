@@ -90,9 +90,12 @@ function update() {
     enemy.y -=1;
     step +=1;
   } else if(step < 700){
-    enemy.x += 1;
-    enemy.y += 0.5;
-  }
+    enemy.x -= 1;
+    enemy.y -= 2;
+    step++
+  } else if(step){
+
+  } 
   
   drawSquare();
   drawAim();
@@ -135,19 +138,20 @@ function checkPlayer(){
   if(square.y > canvasCurrentHeight){
     square.y = canvasCurrentHeight - 25;
   }
-  if(enemy.x > canvasCurrentWidth - 30){
-    enemy.x -= 1;
-  }
-  if(enemy.y > canvasCurrentHeight - 30){
-    enemy.y -= 1;
-  }
-
 }
-// function breakCheck(){
-//   if(
-    
-//   ){
-//     alert('zderzenie');
-//   }
-// }
-// setInterval(breakCheck, 0.1);
+setInterval(checkPlayer, 10);
+function limitEnemyMovement() {
+  if (enemy.x <= 0) {
+    enemy.x = 0;
+  }
+  if (enemy.x + enemy.size >= canvasCurrentWidth) {
+    enemy.x = canvasCurrentWidth - enemy.size;
+  }
+  if (enemy.y <= 0) {
+    enemy.y = 0;
+  }
+  if (enemy.y + enemy.size >= canvasCurrentHeight) {
+    enemy.y = canvasCurrentHeight - enemy.size;
+  }
+}
+setInterval(limitEnemyMovement, 10);
